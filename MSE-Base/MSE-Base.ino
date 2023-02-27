@@ -329,28 +329,55 @@ void loop()
                         }
                         case 1: // Drive forward
                         {
-                           Bot.Forward("D1", uc_Drive_Speed, uc_Drive_Speed); // Drive ID, Left speed, Right speed
+                           Bot.Forward("D1", uc_Drive_Speed,uc_Drive_Speed); // Drive ID, Left speed, Right speed
                            uc_Drive_Index = 2;                                // Next state: drive backward
                            break;
                         }
-                        case 2: // Drive backward
+                        case 2: // Drive forward
                         {
-                           Bot.Reverse("D1", uc_Drive_Speed);                 // Drive ID, Speed (same for both)                 
-                           uc_Drive_Index = 3;                                // Next state: turn left
+                           Bot.Forward("D1", uc_Drive_Speed,uc_Drive_Speed); // Drive ID, Left speed, Right speed
+                           uc_Drive_Index = 3;                                // Next state: drive backward
                            break;
                         }
-                        case 3: // Turn left (counterclockwise)
+
+                        case 3: // Drive backward
                         {
-                           Bot.Left("D1", uc_Drive_Speed);                    // Drive ID, Speed (same for both)
-                           uc_Drive_Index = 4;                                // Next state: turn right
+                            Bot.Reverse("D1",uc_Drive_Speed);                    // Drive ID, Speed (same for both)                 
+                           uc_Drive_Index = 4;                                // Next state: turn left
                            break;
                         }
-                        case 4: // Turn right (clockwise)
+                        case 4: //pause
                         {
-                           Bot.Right("D1", uc_Drive_Speed);                   // Drive ID, Speed (same for both)
-                           uc_Drive_Index = 0;                                // Next state: stop
+                           Bot.Stop("D1");                                    // Drive ID
+                           uc_Drive_Index = 5;                                // Next state: drive forward
                            break;
                         }
+                        case 5: // pause
+                        {
+                           Bot.Stop("D1");                                    // Drive ID
+                           uc_Drive_Index = 6;                                // Next state: drive forward
+                           break;
+                        }
+                        case 6:
+                      {
+                        Bot.Reverse("D1",uc_Drive_Speed);                 // Drive ID, Speed (same for both)                 
+                           uc_Drive_Index = 7;                                // Next state: turn left
+                           break;
+                      }
+                        case 7:
+                      {
+                        Bot.Stop("D1");                // Drive ID, Speed (same for both)                 
+                           uc_Drive_Index = 8;                                // Next state: turn left
+                           break;
+                      }                      
+                        case 8: //pause
+                      {
+                          Bot.Stop("D1");                                    // Drive ID
+                         uc_Drive_Index = 0;                                // Next state: drive forward
+                         ui_Robot_Mode_Index = 0;
+                         break;
+                      }  
+                                       
                      }
                   }
                }
